@@ -68,8 +68,8 @@ public class SomeServiceInbound_Service
      *     returns SomeServiceInbound
      */
     @WebEndpoint(name = "SomeService_Inbound")
-    public SomeServiceInbound getSomeServiceInbound() {
-        return super.getPort(new QName("http://siebel.com/CustomUI", "SomeService_Inbound"), SomeServiceInbound.class);
+    public com.siebel.customui.SomeServiceInbound getSomeServiceInbound() {
+        return super.getPort(new QName("http://siebel.com/CustomUI", "SomeService_Inbound"), com.siebel.customui.SomeServiceInbound.class);
     }
 
     /**
@@ -80,8 +80,8 @@ public class SomeServiceInbound_Service
      *     returns SomeServiceInbound
      */
     @WebEndpoint(name = "SomeService_Inbound")
-    public SomeServiceInbound getSomeServiceInbound(WebServiceFeature... features) {
-        return super.getPort(new QName("http://siebel.com/CustomUI", "SomeService_Inbound"), SomeServiceInbound.class, features);
+    public com.siebel.customui.SomeServiceInbound getSomeServiceInbound(WebServiceFeature... features) {
+        return super.getPort(new QName("http://siebel.com/CustomUI", "SomeService_Inbound"), com.siebel.customui.SomeServiceInbound.class, features);
     }
 
     private static URL __getWsdlLocation() {

@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlType;
 public class Security {
 
     @XmlElement(name = "UsernameToken")
-    protected UsernameToken usernameToken;
+    protected org.xmlsoap.schemas.ws._2002._07.secext.UsernameToken usernameToken;
 
     /**
      * Gets the value of the usernameToken property.
@@ -43,7 +43,7 @@ public class Security {
      *     {@link UsernameToken }
      *     
      */
-    public UsernameToken getUsernameToken() {
+    public org.xmlsoap.schemas.ws._2002._07.secext.UsernameToken getUsernameToken() {
         return usernameToken;
     }
 
@@ -55,7 +55,7 @@ public class Security {
      *     {@link UsernameToken }
      *     
      */
-    public void setUsernameToken(UsernameToken value) {
+    public void setUsernameToken(org.xmlsoap.schemas.ws._2002._07.secext.UsernameToken value) {
         this.usernameToken = value;
     }
 
