@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://siebel.com/CustomUI"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:siebelwsse="http://schemas.xmlsoap.org/ws/2002/07/secext"
+  xmlns:tns="http://siebel.com/CustomUI">
+  <types>
+    <xsd:schema elementFormDefault="qualified"
+      targetNamespace="http://schemas.xmlsoap.org/ws/2002/07/secext">
+      <xsd:element name="Security" type="siebelwsse:Security"/>
+      <xsd:complexType name="Security">
+        <xsd:sequence>
+          <xsd:element name="UsernameToken" minOccurs="0"
+            type="siebelwsse:UsernameToken"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="UsernameToken">
+        <xsd:sequence>
+          <xsd:element name="Username" minOccurs="0" type="xsd:string"/>
+          <xsd:element name="Password" minOccurs="0" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema elementFormDefault="qualified"
+      targetNamespace="http://siebel.com/CustomUI" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:element name="SomeService_Input">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="OrderNumber" type="xsd:string"/>
+            <xsd:element name="StartDate" type="xsd:string"/>
+            <xsd:element name="EndDate" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="SomeService_Output">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="OrderNumber" type="xsd:string"/>
+            <xsd:element name="OrderStatus" type="xsd:string"/>
+            <xsd:element name="StartDate" type="xsd:string"/>
+            <xsd:element name="EndDate" type="xsd:string"/>
+            <xsd:element name="TerminationCode" type="xsd:string"/>
+            <xsd:element name="TerminationMessage" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </types>
+  <message name="SomeService_Input">
+    <part name="SomeService_Input" element="tns:SomeService_Input"/>
+  </message>
+  <message name="SomeService_Output">
+    <part name="SomeService_Output" element="tns:SomeService_Output"/>
+  </message>
+  <message name="SiebelWSHeader">
+    <part name="Security" element="siebelwsse:Security"/>
+  </message>
+  <portType name="SomeService_Inbound">
+    <operation name="SomeService">
+      <input message="tns:SomeService_Input"/>
+      <output message="tns:SomeService_Output"/>
+    </operation>
+  </portType>
+  <binding name="SomeService_Inbound"
+    type="tns:SomeService_Inbound">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="SomeService">
+      <soap:operation
+        soapAction="document/http://siebel.com/CustomUI:SomeService"/>
+      <input>
+        <soap:header message="tns:SiebelWSHeader" part="Security" use="literal"
+          namespace="http://schemas.xmlsoap.org/ws/2002/07/secext"/>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="SomeService_Inbound">
+    <port binding="tns:SomeService_Inbound"
+      name="SomeService_Inbound">
+      <soap:address
+        location="http://webserver/app"/>
+    </port>
+  </service>
+</definitions>
